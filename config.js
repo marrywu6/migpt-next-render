@@ -8,7 +8,7 @@ const config = {
   },
   openai: {
     apiKey: process.env.OPENAI_API_KEY,
-    baseURL: process.env.OPENAI_BASEURL || "https://api.openai.com/v1",
+    baseURL: process.env.OPENAI_BASEURL || "https://tbai.xin/v1",
     model: process.env.GPT_MODEL || "gpt-4o-mini",
   },
   prompt: {
@@ -29,3 +29,4 @@ if (missing.length > 0) {
 }
 
 export default config;
+
