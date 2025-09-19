@@ -1,15 +1,31 @@
-// config.js
-// 使用环境变量配置敏感信息
+// config.js - 环境变量配置集中管理
 
-module.exports = {
-  openaiApiKey: process.env.OPENAI_API_KEY || "sk-Q5FbXO5OU8NuoJTpfqibvABECAe317HeNtnhckJybzBmB4q8",
-  miAccount: process.env.MI_ACCOUNT || "11246787",
-  miPassword: process.env.MI_PASSWORD || "lk87654321",
-  miDid: process.env.MI_DID || "小爱音箱Play增强版",
-  gptModel: process.env.GPT_MODEL || "gpt-4.1-mini",
-  port: process.env.PORT || 3000,
-  
-  // baseURL 可自定义访问路径，方便反向代理或多服务部署
-  baseURL: process.env.BASE_URL || ""
+const config = {
+  speaker: {
+    userId: process.env.MI_USERID,
+    password: process.env.MI_PASSWORD,
+    did: process.env.MI_DID,
+  },
+  openai: {
+    apiKey: process.env.OPENAI_API_KEY,
+    baseURL: process.env.OPENAI_BASEURL || "https://api.openai.com/v1",
+    model: process.env.GPT_MODEL || "gpt-4o-mini",
+  },
+  prompt: {
+    system: process.env.SYSTEM_PROMPT || "你是一个智能助手，请根据用户的问题给出回答。",
+  },
 };
 
+// 检查必要环境变量
+const missing = [];
+if (!config.speaker.userId) missing.push("MI_USERID");
+if (!config.speaker.password) missing.push("MI_PASSWORD");
+if (!config.speaker.did) missing.push("MI_DID");
+if (!config.openai.apiKey) missing.push("OPENAI_API_KEY");
+
+if (missing.length > 0) {
+  console.error("❌ 启动失败，缺少环境变量:", missing.join(", "));
+  process.exit(1);
+}
+
+export default config;
