@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "migpt-next-render",
   "version": "1.0.0",
   "description": "MiGPT-Next deployment for Render with baseURL support",
@@ -13,3 +14,4 @@
     "@mi-gpt/next": "^1.0.0" 
   }
 }
+
