@@ -1,4 +1,3 @@
-//Dockerfile
 # Node.js 18 Alpine 基础镜像
 FROM node:18-alpine
 
@@ -23,3 +22,4 @@ EXPOSE 3000
 
 # 启动命令
 CMD ["node", "start.js"]
+
