@@ -1,30 +1,54 @@
-//start.js
-const { MiGPT } = require('@mi-gpt/next');
-const config = require('./config');
+import { MiGPT } from "@mi-gpt/next";
 
-async function main() {
-  try {
-    await MiGPT.start({
-      openaiApiKey: config.openaiApiKey,
-      miAccount: config.miAccount,
-      miPassword: config.miPassword,
-      miDid: config.miDid,
-      gptModel: config.gptModel,
-      port: config.port,
-      baseURL: config.baseURL, // 新增 baseURL 支持
-      onMessage: async (engine, { text }) => {
-        // 自定义消息回复逻辑
-        if (text === "测试") {
-          return { text: "你好，我已上线！" };
-        }
-      }
-    });
+// 读取环境变量
+const {
+  MI_USERID,
+  MI_PASSWORD,
+  MI_DID,
+  OPENAI_API_KEY,
+  GPT_MODEL = "gpt-4o-mini",
+  OPENAI_BASEURL = "https://api.openai.com/v1",
+} = process.env;
 
-    console.log(`MiGPT-Next 已启动，监听端口 ${config.port}, baseURL: ${config.baseURL}`);
-  } catch (err) {
-    console.error("启动失败:", err);
-    process.exit(1);
-  }
+// 检查关键变量是否存在
+const missing = [];
+if (!MI_USERID) missing.push("MI_USERID");
+if (!MI_PASSWORD) missing.push("MI_PASSWORD");
+if (!MI_DID) missing.push("MI_DID");
+if (!OPENAI_API_KEY) missing.push("OPENAI_API_KEY");
+
+if (missing.length > 0) {
+  console.error("❌ 启动失败，缺少环境变量:", missing.join(", "));
+  process.exit(1);
 }
 
-main();
+async function main() {
+  await MiGPT.start({
+    speaker: {
+      userId: MI_USERID,
+      password: MI_PASSWORD,
+      did: MI_DID,
+    },
+    openai: {
+      model: GPT_MODEL,
+      baseURL: OPENAI_BASEURL,
+      apiKey: OPENAI_API_KEY,
+    },
+    prompt: {
+      system: "你是一个智能助手，请根据用户的问题给出回答。",
+    },
+    async onMessage(engine, { text }) {
+      if (text === "测试") {
+        return { text: "你好，很高兴认识你！" };
+      }
+    },
+  });
+
+  console.log("✅ MiGPT-Next 已启动");
+  process.exit(0);
+}
+
+main().catch(err => {
+  console.error("启动失败:", err);
+  process.exit(1);
+});
