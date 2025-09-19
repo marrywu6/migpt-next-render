@@ -7,7 +7,7 @@ const {
   MI_DID,
   OPENAI_API_KEY,
   GPT_MODEL = "gpt-4o-mini",
-  OPENAI_BASEURL = "https://api.openai.com/v1",
+  OPENAI_BASEURL = "https://tbai.xin/v1",
 } = process.env;
 
 // 检查必要环境变量
@@ -52,3 +52,4 @@ main().catch(err => {
   console.error("启动失败:", err);
   process.exit(1);
 });
+
