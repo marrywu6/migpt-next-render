@@ -1,0 +1,15 @@
+{
+  "name": "migpt-next-render",
+  "version": "1.0.0",
+  "description": "MiGPT-Next deployment for Render with baseURL support",
+  "main": "start.js",
+  "scripts": {
+    "start": "node start.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@mi-gpt/next": "^1.0.0" 
+  }
+}
