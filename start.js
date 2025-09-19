@@ -1,6 +1,6 @@
 import { MiGPT } from "@mi-gpt/next";
 
-// 读取环境变量
+// 从环境变量读取配置
 const {
   MI_USERID,
   MI_PASSWORD,
@@ -10,7 +10,7 @@ const {
   OPENAI_BASEURL = "https://api.openai.com/v1",
 } = process.env;
 
-// 检查关键变量是否存在
+// 检查必要环境变量
 const missing = [];
 if (!MI_USERID) missing.push("MI_USERID");
 if (!MI_PASSWORD) missing.push("MI_PASSWORD");
@@ -22,6 +22,7 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
+// 启动 MiGPT
 async function main() {
   await MiGPT.start({
     speaker: {
@@ -45,7 +46,6 @@ async function main() {
   });
 
   console.log("✅ MiGPT-Next 已启动");
-  process.exit(0);
 }
 
 main().catch(err => {
