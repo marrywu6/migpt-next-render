@@ -21,7 +21,7 @@ async function main() {
     /**
  * 自定义消息回复
  */
-onMessage(engine, msg) {
+async onMessage(engine, msg) {
   if (engine.config.callAIKeywords.some((e) => msg.text.startsWith(e))) {
     // 打断原来小爱的回复
     await engine.speaker.abortXiaoAI();
@@ -42,6 +42,7 @@ main().catch(err => {
   console.error("启动失败:", err);
   process.exit(1);
 });
+
 
 
 
