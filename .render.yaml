@@ -1,0 +1,31 @@
+# Render Web 服务配置
+services:
+  - type: web
+    name: migpt-next
+    env: docker
+    branch: main
+    autoDeploy: true
+    plan: free
+    dockerContext: .
+    dockerCommand: node start.js
+    envVars:
+      - key: MI_USERID
+        value: "" # 填写你的米账号
+      - key: MI_PASSWORD
+        value: "" # 填写米密码
+      - key: MI_DID
+        value: "小爱音箱 Pro" # 根据你的设备修改
+      - key: MI_PASSTOKEN
+        value: "" # 填写 passToken
+      - key: OPENAI_APIKEY
+        value: "" # 填写 OpenAI Key
+      - key: OPENAI_MODEL
+        value: "gpt-4o-mini"
+      - key: OPENAI_BASEURL
+        value: "https://api.openai.com/v1"
+      - key: TTS_CMD1
+        value: "5"
+      - key: TTS_CMD2
+        value: "1"
+      - key: PORT
+        value: "3000"
