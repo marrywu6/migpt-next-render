@@ -27,7 +27,7 @@ async function main() {
         const { text } = await engine.askAI(msg);
         console.log(`🔊 AI 回复: ${text}`);
       
-        await engine.MiOT.doAction(5, 1, text);
+        await engine.MiOT.doAction(5, 3, text);
        
         return { handled: true };
       }
@@ -39,4 +39,5 @@ main().catch((err) => {
   console.error("❌ 启动失败:", err);
   process.exit(1);
 });
+
 
