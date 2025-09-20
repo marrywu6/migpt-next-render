@@ -10,22 +10,23 @@ services:
     dockerCommand: node start.js
     envVars:
       - key: MI_USERID
-        value: "" # 填写你的米账号
+        value: "11246787" # 填写你的米账号
       - key: MI_PASSWORD
-        value: "" # 填写米密码
+        value: "lk87654321" # 填写米密码
       - key: MI_DID
-        value: "小爱音箱 Pro" # 根据你的设备修改
+        value: "小爱音箱Play增强版" # 根据你的设备修改
       - key: MI_PASSTOKEN
-        value: "" # 填写 passToken
+        value: "V1:DXmurwq2/R1BHTELu6obCZ2iCvdSqWCmMRBqbihOG1101Txt4I5rE6U6d/6B8SXy3Es2FXNbALQguqWzJXG+AvCgwNdl2x5Pa8I0cALaP3cGaUAwH0sWtYLbBRFjn4JbwgqMtp/iV9BOtavtJeRF9VGTvV7RFxedUkYS+HM9lz1EsKotQD1o8ZEH70jLLJUwtBw48p1vQxPKTTupJ7xDJxR5zq6kzJhroUnHR3WbOFklUsr8sJLIVqTr2CovY9bVxDPZTyzZdmVEQidkhx7qNLtG4k9jRkxhUW0dnNHat/FQKBem8Pa4j+xGaot8cyj3g81EUWiRcdGICdM67JgVkw==" # 填写 passToken
       - key: OPENAI_APIKEY
-        value: "" # 填写 OpenAI Key
+        value: "sk-iXf4oMMgO1nut4XBUrdqDDRYrT6njtlhRcGxNl1iS5OxDrGq" # 填写 OpenAI Key
       - key: OPENAI_MODEL
-        value: "gpt-4o-mini"
+        value: "gpt-5-mini"
       - key: OPENAI_BASEURL
-        value: "https://api.openai.com/v1"
+        value: "https://api.chatanywhere.org/v1"
       - key: TTS_CMD1
         value: "5"
       - key: TTS_CMD2
         value: "1"
       - key: PORT
         value: "3000"
+
