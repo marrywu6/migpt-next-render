@@ -1,48 +1,38 @@
-import express from "express";
-import { MiGPT } from "@mi-gpt/next";
-import config from "./config.js";
+import 'dotenv/config';
+import express from 'express';
+import { MiGPT } from '@mi-gpt/next';
+import config from './config.js';
 
+const PORT = process.env.PORT || 3000;
+
+// 绑定端口，避免 Render 报错
 const app = express();
-const port = process.env.PORT || 3000;
-
-app.get("/", (req, res) => {
-  res.send("MiGPT-Next running!");
-});
-
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+app.get('/', (req, res) => res.send('MiGPT-Next 服务运行中'));
+app.listen(PORT, () => console.log(`🌐 服务已启动，监听端口 ${PORT}`));
 
 async function main() {
   await MiGPT.start({
-    speaker: config.speaker,
-    openai: config.openai,
-    prompt: config.prompt,
-    /**
- * 自定义消息回复
- */
-async onMessage(engine, msg) {
-  if (engine.config.callAIKeywords.some((e) => msg.text.startsWith(e))) {
-    // 打断原来小爱的回复
-    await engine.speaker.abortXiaoAI();
-    // 调用 AI 回答
-    const { text } = await engine.askAI(msg);
-    console.log(`🔊 ${text}`);
-    // TTS 播放文字
-    await engine.MiOT.doAction(5, 1, text); // 👈 注意把 5,1 换成你的设备 ttsCommand
-    return { handled: true };
-  }
-}
+    ...config,
+    async onMessage(engine, msg) {
+      if (engine.config.callAIKeywords.some((e) => msg.text.startsWith(e))) {
+        // 打断小爱原有回复
+        await engine.speaker.abortXiaoAI();
+
+        // 获取 AI 回复
+        const { text } = await engine.askAI(msg);
+        console.log(`🔊 AI 回复: ${text}`);
+
+        // 播放 TTS
+        const [cmd1, cmd2] = engine.config.ttsCmd;
+        await engine.MiOT.doAction(cmd1, cmd2, text);
+
+        return { handled: true };
+      }
+    },
   });
-
-  console.log("✅ MiGPT-Next 已启动");
 }
 
-main().catch(err => {
-  console.error("启动失败:", err);
+main().catch((err) => {
+  console.error('启动失败:', err);
   process.exit(1);
 });
-
-
-
-
