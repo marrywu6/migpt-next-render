@@ -26,7 +26,8 @@ services:
       - key: TTS_CMD1
         value: "5"
       - key: TTS_CMD2
-        value: "1"
+        value: "3"
       - key: PORT
         value: "3000"
+
 
