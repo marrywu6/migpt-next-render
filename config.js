@@ -16,5 +16,6 @@ export default {
     system: '你是一个智能助手，请根据用户的问题给出回答。',
   },
   callAIKeywords: ['AI', '小爱', '智能'],
-  ttsCmd: [parseInt(process.env.TTS_CMD1 || '5'), parseInt(process.env.TTS_CMD2 || '1')],
+  ttsCmd: [parseInt(process.env.TTS_CMD1 || '5'), parseInt(process.env.TTS_CMD2 || '3')],
 };
+
